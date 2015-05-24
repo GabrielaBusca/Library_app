@@ -1,0 +1,11 @@
+<div class="media">
+  <div class="media-left">
+    <a href="#">
+      <%= image_tag "/uploads/book/" + book["imagine_coperta"] if book["imagine_coperta"].present? %>
+    </a>
+  </div>
+  <div class="media-body">
+    <h4 class="media-heading">Detalii:</h4>
+    <%= book["titlu"] %>
+  </div>
+</div>

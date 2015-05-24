@@ -1,0 +1,48 @@
+<%= simple_form_for @book, :html => { :class => 'form-horizontal' } do |f| %>
+	<table class="table">
+		<tr>
+			<th> ID </th> 
+			<td> <%= f.input :id , :input_html => {:class => 'form-control'}, :label => false %> </td>
+		</tr>
+		<tr>
+			<th> Titlu </th>
+			<td> <%= f.input :titlu , :input_html => {:class => 'form-control'},:label => false %> </td>
+		</tr>
+		<tr>
+			<th> Cod isbn </th>
+			<td> <%= f.input :cod_isbn , :input_html => {:class => 'form-control'}, :label => false %> </td>
+		</tr>
+		<tr>
+			<th> Imagine coperta </th>
+			<td> <%= f.input :imagine_coperta, :label => false %> </td>
+		</tr>
+		<tr>
+			<th> Data aparitie </th>
+			<td> <%= f.input :data_aparitie, :label => false, :start_year => 1910, :end_year => 2015 %> </td>
+		</tr>
+		<tr>
+			<th> Data adaugare </th>
+			<td> <%= f.input :data_adaugare, :label => false, :start_year => 1910, :end_year => 2015 %> </td>
+		</tr>
+		<tr>
+			<th> Autor </th>
+			<td> <%= f.input :id_autor, :label => false, :input_html => {:class => 'form-control'} %> </td>
+		</tr>
+		<tr>
+			<th> Editura </th>
+			<td> <%= f.input :id_editura, :label => false, :input_html => {:class => 'form-control'} %> </td>
+		</tr>
+		<tr>
+			<th> Domeniu </th>
+			<td> <%= f.input :id_domeniu, :label => false, :input_html => {:class => 'form-control'} %> </td>
+		</tr>
+		<tr>
+			<th> Descriere </th>
+			<td> <%= f.input :descriere, :label => false, :input_html => {:class => 'form-control'} %> </td>
+		</tr>
+		<tr>
+			<th> </th>
+			<td> <%= f.button :submit %> </td>
+		</tr>
+	</table>
+<% end %>

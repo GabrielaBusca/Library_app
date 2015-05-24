@@ -1,0 +1,34 @@
+<div class="page-header">
+	<h3>Domenii </h3>
+</div>
+
+<div class="domains-content">
+ 	<% @domains.each do |domain| %>
+ 	  <div class="panel panel-default panel-domain">
+		<div class="domain-box panel-heading"> 
+			<h4> <i class="fa fa-chevron-circle-right"></i> <%= domain.nume %> </h4>
+		</div>
+		<div class="row panel-body">
+			<% (get_domain_books domain.id).each do |book| %>
+
+				<div class="media book-content">
+				  <div class="media-left">
+				    <a href="#">
+				      <%= image_tag "/uploads/book/" + book["imagine_coperta"] if book["imagine_coperta"].present? %>
+				    </a>
+				  </div>
+				  <div class="media-body">
+				    <h4 class="media-heading"></h4>
+				    <b> Titlu: </b> <%= book["titlu"] %> <br>
+				    <b> Data aparitie: </b> <%= book["data_aparitie"] %> <br>
+				    <b> Data adaugare: </b> <%= book["data_adaugare"] %> <br>
+				  </div>
+				</div>
+
+			<% end %>
+		</div>
+		<button class="btn btn-xs btn-link pull-right" > Mai multe ... </button>
+		<hr />
+	  </div>
+	 <% end %>
+</div>

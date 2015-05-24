@@ -1,0 +1,40 @@
+// Place all the styles related to the welcome controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.context-box {
+  text-align: center;
+}
+.context-box i {
+  font-size: 50px;
+  text-shadow: rgba(0,0,0,0.12) 3px 3px 0;
+}
+.welcome-content .raw {
+	margin-top: 5em;
+}
+.welcome-content .raw .content-box-1 i {
+	color:rgb(207, 32, 32);
+}
+.welcome-content .raw .content-box-2 i {
+	color: #8fb859;
+}
+.welcome-content .raw .content-box-3 i {
+	color: #942FD8;
+}
+.context-box p {
+    color: #888;
+    font-size: 15px;
+    line-height: 26px;
+}
+.btn-explore {
+	border-color: #7831A8;
+	background-color: #942FD8;
+	color:white;
+}
+.btn-explore:hover {
+	background-color: #7831A8;
+	color:white;
+}
+.welcome-content .raw > div {
+	margin-top: 5em;
+}

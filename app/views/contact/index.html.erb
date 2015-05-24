@@ -1,0 +1,25 @@
+<div class="page-header">
+	<h3>Contact</h3>
+</div> 
+
+<div class="libraries-content">
+  <% @libraries.each do |library| %>
+	<div class="raw">
+		<div> <h4><b> <%= library["nume"] %> </b> </h4> </div>
+		<table class="table">
+			<tr>
+				<th> Adresa: </th>
+				<td> <%= library["adresa"] %> </td>
+			</tr>
+			<tr>
+				<th> Telefon: </th>
+				<td> <%= library["telefoane"] %> </td>
+			</tr>
+			<tr>
+				<th> E-mail: </th>
+				<td> <%= library["email"] %> </td>
+			</tr>
+		</table>
+	</div>
+  <% end %>
+</div>
