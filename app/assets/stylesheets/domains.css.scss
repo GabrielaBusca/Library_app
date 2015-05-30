@@ -13,6 +13,15 @@
 
 .panel-domain {
 	width: 32.33%;
+	min-height: 305px;
 	float: left;
 	margin-right: 5px;
+}
+.domains-content a .panel-heading {
+  color: #333333;
+  background-color: whitesmoke;
+  border-color: #dddddd;
+}
+.domains-content a:hover {
+	color: initial;
 }

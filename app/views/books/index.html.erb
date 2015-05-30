@@ -1,0 +1,41 @@
+<div class="page-header">
+	<h3> Colectie </h3>
+</div>
+<div class="search-control">
+	<%= form_tag( books_path, :method => :get ) do %>
+		<div class="row">
+			<div class="col-md-1 col-xs-2">
+				<label class="control-label">Titlu: </label>
+			</div>
+			<div class="col-md-5 col-xs-10">
+				<%= text_field_tag :title, nil, placeholder: "Titlu", :class => "form-control" %>
+			</div>
+			<div class="col-md-1 col-xs-2">
+				<label class="control-label">Autor: </label>
+			</div>
+			<div class="col-md-5 col-xs-10">
+				<%= text_field_tag :author, nil, placeholder: "Autor", :class => "form-control" %>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md-1 col-xs-2">
+				<label class="control-label">Editura: </label>
+			</div>
+			<div class="col-md-5 col-xs-12">
+				<%= select_tag :publisher, options_from_collection_for_select(@publishers, "id", "nume"),:class => "form-control"%>
+			</div>
+			<div class="col-md-1 col-xs-2">
+				<label class="control-label">Domeniu: </label>
+			</div>
+			<div class="col-md-5 col-xs-12">
+				<%= select_tag :domain, options_from_collection_for_select(@domains, "id", "nume"), :class => "form-control"%>
+			</div>
+		</div>
+	    <div>
+	    	<%= submit_tag "Cauta", class: 'btn btn-primary btn-xs search-name' %>
+		</div>
+	<% end %>
+</div>
+<div class="colection-books">
+	<%= render :partial => 'books/list_books' %>
+</div>

@@ -1,0 +1,64 @@
+<div class="page-header">
+	<h3> <%= @book["titlu"] %> </h3>
+</div>
+
+<div class="book-content well">
+	<div class="media-left">
+	      <%= image_tag "/uploads/book/" + @book["imagine_coperta"] if @book["imagine_coperta"].present? %>
+	</div>
+	<div class="media-body">
+		<h4> <b> Informatii carte: </b> </h4>
+		<table class="table">
+	    	<tr>
+	    		<th> Anul aparitiei: </th> 
+	    		<td> <%= @book["data_aparitie"].year %> </td>
+		    	<th> Data adaugarii: </th> 
+		    	<td> <%= @book["data_adaugare"] %> </td>
+		    </tr>
+		    <tr>	
+		    	<th> Cod ISBN: </th> 
+		    	<td> <%= @book["cod_isbn"] %>  </td>
+		    	<th> Autor: </th> 
+		    	<td> <%= @book["autor"] %> </td>
+		    </tr>
+		    <tr>	
+		    	<th> Editura: </th> 
+		    	<td> <%= @book["editura"] %> </td>
+		    	<th> Domeniu: </th> 
+		    	<td> <%= @book["domeniu"] %> </td>
+	    	</tr>
+	    </table>
+	</div>
+
+	<div>
+		<h4> <b>Descriere: </b> </h4>
+		<div class="description-book">
+			<i> <%= @book["descriere"] %> </i>
+		</div>
+	</div>
+
+</div>
+
+<div class ="book-location" >
+	<h4> Unde pot gasi aceasta carte ? </h4> 
+	<table class="table ">
+		<thead>
+			<tr>
+				<th> Nume </th>
+				<th> Adresa </th>
+				<th> Nr exemplare totale </th>
+				<th> Nr exemplare imprumutate </th>
+			</tr>
+		</thead>
+		<tbody>
+			<% instances.each do |instance| %>
+				<tr> 
+					<td> <%= instance["nume"] %> </td>
+					<td> <%= instance["adresa"] %> </td>
+					<td> <%= instance["exemplare"] %> </td>
+					<td>  </td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>

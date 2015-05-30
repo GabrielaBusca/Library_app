@@ -26,15 +26,15 @@
 		</tr>
 		<tr>
 			<th> Autor </th>
-			<td> <%= f.input :id_autor, :label => false, :input_html => {:class => 'form-control'} %> </td>
+			<td> <%= f.input :id_autor, :label => false, :input_html => {:class => 'form-control'}, collection: @authors, label_method: :nume, value_method: :id %> </td>
 		</tr>
 		<tr>
 			<th> Editura </th>
-			<td> <%= f.input :id_editura, :label => false, :input_html => {:class => 'form-control'} %> </td>
+			<td> <%= f.input :id_editura, :label => false, :input_html => {:class => 'form-control'},  collection: @publishers, label_method: :nume, value_method: :id %> </td>
 		</tr>
 		<tr>
 			<th> Domeniu </th>
-			<td> <%= f.input :id_domeniu, :label => false, :input_html => {:class => 'form-control'} %> </td>
+			<td> <%= f.input :id_domeniu, :label => false, :input_html => {:class => 'form-control'}, collection: @domains, label_method: :nume, value_method: :id %> </td>
 		</tr>
 		<tr>
 			<th> Descriere </th>

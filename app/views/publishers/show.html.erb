@@ -1,0 +1,10 @@
+<div class="page-header">
+	<div class="btn btn-group pull-right">
+		<%= link_to "Inapoi", publishers_path, :class => "btn btn-primary" %>
+	</div>
+	<h3>Editura: <%= publisher.nume %> </h3>
+</div>
+
+<div class="publisher-books">
+	<%= render :partial => 'books/list_books' %>
+</div>

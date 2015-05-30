@@ -1,0 +1,12 @@
+// Place all the styles related to the authors controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.authors-content a:hover {
+	background-color: transparent;
+	color: inherit;
+}
+.authors-content tr td:first-child a {
+	color:#a80a0a;
+	font-weight: bold;
+}

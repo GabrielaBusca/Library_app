@@ -1,0 +1,12 @@
+<div class="page-header">
+	<div class="btn btn-group pull-right">
+		<%= link_to "Inapoi", domains_path, :class => "btn btn-primary" %>
+	</div>
+	<h3>Domeniu: <%= domain.nume %> </h3>
+</div>
+
+<div class="domain-books">
+
+	<%= render :partial => 'books/list_books' %>
+
+</div>

@@ -2,14 +2,28 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.publisher-box {
-  width: 33.333%;
-  float: left;
-  line-height: 2em;
-  font-weight: bold;
-  padding-left: 4%;
-}
 
 .publisher-box i {
 	color: rgb(38, 83, 200);;
 }
+
+.book-content {
+	margin-left: 0.5em;
+	margin-right: 0.5em; 
+}
+
+.panel-publisher {
+	width: 32.33%;
+	min-height: 305px;
+	float: left;
+	margin-right: 5px;
+}
+.publishers-content a .panel-heading {
+  color: #333333;
+  background-color: whitesmoke;
+  border-color: #dddddd;
+}
+.publishers-content a:hover {
+	color: initial;
+}
+

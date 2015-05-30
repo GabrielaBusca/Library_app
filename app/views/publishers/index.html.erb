@@ -2,12 +2,35 @@
 	<h3>Edituri </h3>
 </div>
 
-<div class="publishers-content panel panel-default">
-  <div class="panel-body">
-	  <% @publishers.each do |publisher| %>
-		<div class="publisher-box"> 
-			<i class="fa fa-chevron-circle-right"></i> <%= publisher.nume %>
+<div class="publishers-content">
+ 	<% @publishers.each do |publisher| %>
+ 	  <%= link_to publisher_path(publisher["id_editura"]) do %>
+ 	  <div class="panel panel-default panel-publisher">
+		<div class="publisher-box panel-heading"> 
+			<h4> <i class="fa fa-chevron-circle-right"></i> <%= publisher["editura"] %> </h4>
 		</div>
+		<div class="row panel-body">
+				<div class="media book-content">
+				  <div class="media-left">
+				      <%= image_tag "/uploads/book/" + publisher["imagine_coperta"] if publisher["imagine_coperta"].present? %>
+				  </div>
+				  <div class="media-body">
+				    <h4 class="media-heading"></h4>
+				    <b> Titlu: </b> <%= publisher["titlu"] %> <br>
+				    <b> Data aparitie: </b> <%= publisher["data_aparitie"] %> <br>
+				    <b> Data adaugare: </b> <%= publisher["data_adaugare"] %> <br>
+				  </div>
+				</div>
+
+		</div>
+		<%= link_to "Mai multe..", publisher_path(publisher["id_editura"]), :class => "btn btn-xs btn-link pull-right" %>
+		<hr />
+	  </div>
 	  <% end %>
-  </div>
+	 <% end %>
+</div>
+<div>
+	<center>
+		<%= will_paginate @publishers, renderer: BootstrapPagination::Rails %>
+	</center>
 </div>

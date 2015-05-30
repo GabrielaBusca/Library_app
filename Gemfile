@@ -16,7 +16,6 @@ gem 'coffee-script-source', '1.8.0'
 gem 'therubyracer', platforms: [:mingw, :mswin]
 
 gem 'activerecord-oracle_enhanced-adapter', github: 'rsim/oracle-enhanced', branch: 'rails4'
-
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
@@ -47,3 +46,7 @@ gem 'font-awesome-sass'
 
 gem 'libv8', '3.3.10.4'
 gem 'carrierwave'
+gem 'will_paginate-bootstrap'
+
+gem 'devise'
+

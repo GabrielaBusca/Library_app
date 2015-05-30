@@ -1,0 +1,14 @@
+<div class="page-header">
+	<div class="btn btn-group pull-right">
+		<%= link_to "Inapoi", authors_path, :class => "btn btn-primary" %>
+	</div>
+	<h3> Detalii autor </h3>
+</div>
+
+<div class="well well-default">
+	<i> <%= author.descriere %> </i>
+</div>
+
+<div class="author-books">
+	<%= render :partial => 'books/list_books' %>
+</div>

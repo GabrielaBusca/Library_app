@@ -1,0 +1,29 @@
+<div class="page-header">
+	<h3>Autori </h3>
+</div>
+
+<div class="authors-content">
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th> Autor </th>
+				<th> Numar carti </th>
+				<th>  </th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @authors.each do |author| %>
+				<tr>
+					<td> <%= link_to author["nume_autor"], author_path(author["id_autor"]) %> </td>
+					<td> <%= author["numar_carti"] %> </td>
+					<td> <%= link_to "detalii autor", author_path(author["id_autor"]) %> </td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>
+<div>
+	<center>
+		<%= will_paginate @authors, renderer: BootstrapPagination::Rails %>
+	</center>
+</div>

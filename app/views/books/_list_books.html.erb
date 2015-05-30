@@ -1,0 +1,37 @@
+<% @books.each do |book| %>
+	<div class="media book-content">
+	  <div class="media-left">
+	    <%= link_to book_path(book["id"]) do %>
+	      <%= image_tag "/uploads/book/" + book["imagine_coperta"] if book["imagine_coperta"].present? %>
+	    <% end %>
+	  </div>
+	  <div class="media-body">
+	  	<%= link_to book_path(book["id"]) do %>
+	    	<h4 class="media-heading"> <%= book["titlu"] %></h4>
+	    <% end %>
+	    <table class="table">
+	    	<tr>
+	    		<th> Data aparitie: </th> 
+	    		<td> <%= book["data_aparitie"] %> </td>
+		    	<th> Data adaugare: </th> 
+		    	<td> <%= book["data_adaugare"] %> </td>
+		    </tr>
+		    <tr>	
+		    	<th> Cod ISBN: </th> 
+		    	<td> <%= book["cod_isbn"] %>  </td>
+		    	<th> Autor: </th> 
+		    	<td> <%= book["autor"] %> </td>
+		    </tr>
+		    <tr>	
+		    	<th> Editura: </th> 
+		    	<td> <%= book["editura"] %> </td>
+		    	<th> Domeniu: </th> 
+		    	<td> <%= book["domeniu"] %> </td>
+	    	</tr>
+	    </table>
+	  </div>
+	</div>
+<% end %>
+<center>
+	<%= will_paginate @books, renderer: BootstrapPagination::Rails %>
+</center>

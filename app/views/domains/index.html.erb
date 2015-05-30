@@ -4,31 +4,34 @@
 
 <div class="domains-content">
  	<% @domains.each do |domain| %>
+ 	  <%= link_to domain_path(domain["id_domeniu"]) do %>
  	  <div class="panel panel-default panel-domain">
 		<div class="domain-box panel-heading"> 
-			<h4> <i class="fa fa-chevron-circle-right"></i> <%= domain.nume %> </h4>
+			<h4> <i class="fa fa-chevron-circle-right"></i> <%= domain["domeniu"] %> </h4>
 		</div>
 		<div class="row panel-body">
-			<% (get_domain_books domain.id).each do |book| %>
 
 				<div class="media book-content">
-				  <div class="media-left">
-				    <a href="#">
-				      <%= image_tag "/uploads/book/" + book["imagine_coperta"] if book["imagine_coperta"].present? %>
-				    </a>
+				  <div class="media-left">				    
+				      <%= image_tag "/uploads/book/" + domain["imagine_coperta"] if domain["imagine_coperta"].present? %>
 				  </div>
 				  <div class="media-body">
 				    <h4 class="media-heading"></h4>
-				    <b> Titlu: </b> <%= book["titlu"] %> <br>
-				    <b> Data aparitie: </b> <%= book["data_aparitie"] %> <br>
-				    <b> Data adaugare: </b> <%= book["data_adaugare"] %> <br>
+				    <b> Titlu: </b> <%= domain["titlu"] %> <br>
+				    <b> Data aparitie: </b> <%= domain["data_aparitie"] %> <br>
+				    <b> Data adaugare: </b> <%= domain["data_adaugare"] %> <br>
 				  </div>
 				</div>
 
-			<% end %>
 		</div>
-		<button class="btn btn-xs btn-link pull-right" > Mai multe ... </button>
+		<%= link_to "Mai multe..", domain_path(domain["id_domeniu"]), :class => "btn btn-xs btn-link pull-right" %>
 		<hr />
 	  </div>
+	  <% end %>
 	 <% end %>
+</div>
+<div>
+	<center>
+		<%= will_paginate @domains, renderer: BootstrapPagination::Rails %>
+	</center>
 </div>
