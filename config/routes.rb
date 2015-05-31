@@ -7,11 +7,18 @@ Rails.application.routes.draw do
   root 'welcome#index'
 
   resources :contact, :only => [:index]
-  resources :admin, :only => [:index]
+  
   resources :publishers, :only => [:index, :show]
   resources :domains, :only => [:index, :show]
   resources :authors, :only => [:index, :show]
-  resources :books
+  
+  resources :books do
+    resources :votes, :only => [:create]
+  end
+
+  resources :admin, :only => [:index]
+  resources :borrows, :only => [:new, :create, :index]
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

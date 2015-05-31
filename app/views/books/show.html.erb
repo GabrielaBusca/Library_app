@@ -1,4 +1,32 @@
+<script>
+	var vote = function(i) {
+		$.ajax({
+		    url:  "/books/57/votes",
+		    type: "POST",
+		    data: {vote: i},
+		    success: function(resp){ console.log(resp); }
+		})
+	};
+	var color = function(i) {
+		for (var j = 1; j <= i; j++){
+			document.getElementById("vote"+j).style.color = '#FFFF00';
+		}
+	};
+	var decolor = function(i) {
+		for (var j = 1; j <= i; j++){
+			document.getElementById("vote"+j).style.color = 'rgb(181, 179, 179)';
+		}
+	};
+</script>
+
 <div class="page-header">
+	<div class="book-vote pull-right">
+		<button id="vote1" class="btn-link" onmouseover="color(1)"  onmouseleave="decolor(1)" onclick="vote(1)"> <i class="fa fa-star fa-2" ></i></button>
+		<button id="vote2" class="btn-link" onmouseover="color(2)" onmouseleave="decolor(2)" onclick="vote(2)"> <i class="fa fa-star fa-2"></i></button>
+		<button id="vote3" class="btn-link" onmouseover="color(3)" onmouseleave="decolor(3)" onclick="vote(3)"> <i class="fa fa-star fa-2"></i></button>
+		<button id="vote4" class="btn-link" onmouseover="color(4)" onmouseleave="decolor(4)" onclick="vote(4)"> <i class="fa fa-star fa-2"></i></button>
+		<button id="vote5" class="btn-link" onmouseover="color(5)" onmouseleave="decolor(5)" onclick="vote(5)"> <i class="fa fa-star fa-2"></i></button>
+	</div>
 	<h3> <%= @book["titlu"] %> </h3>
 </div>
 

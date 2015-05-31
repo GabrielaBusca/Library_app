@@ -1,0 +1,28 @@
+<div class="page-header">
+	<h3> Imprumuta </h3>
+</div>
+
+<%= simple_form_for @borrow, :html => { :class => 'form-horizontal' } do |f| %>
+	<div class="select-form">
+		<h4>Selecteaza clientul </h4>
+		<%= render :partial => 'users/list' %>
+	</div>
+	<div class="select-form">
+		<h4>Selecteaza cartea</h4>
+	    <%= render :partial => 'books/minimal_list' %>
+	</div>
+	<div class="select-form">
+		<h4>Finalizare</h4>
+		<table class="table">
+			<tr>
+				<th>Data imprumut</th>
+				<th>Data inchiriere</th>
+			</tr>
+			<tr> 
+				<td><%= f.input :data_imprumut, :label => false %></td>
+				<td><%= f.input :data_inapoiere, :label => false%></td>
+			</tr>
+		</table>
+		<%= f.submit "Adauga imprumut", :class => "btn btn-primary pull-right" %>
+	</div>
+<% end %> 

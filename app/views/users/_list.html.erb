@@ -1,0 +1,16 @@
+<table class="table table-hover">
+	<thead>
+		<th> </th>
+		<th> Nume </th>
+		<th> Email </th>
+	</thead>
+	<tbody>
+	  <% @users.each do |user| %>
+		<tr>
+			<td> <input type="radio" name="borrow[id_user]" value="<%=user.id%>"> </td>
+			<td> <%= user.name + ' ' + user.surname %> </td>
+			<td> <%= user.email %></td>
+		</tr>
+	  <% end %>
+	</tbody>
+</table>
