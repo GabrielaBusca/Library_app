@@ -20,3 +20,12 @@
 	color: #a80a0a;
 	text-shadow: rgba(0,0,0,0.12) 3px 3px 0;
 }
+
+.hint {
+	float:right;
+}
+
+.form-inputs .input {
+	margin-top : 1%;
+	margin-bottom: 1%;
+}

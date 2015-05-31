@@ -1,0 +1,53 @@
+<div class="panel-group" id="accordion">
+
+        <div class="panel panel-default" id="panel1">
+            <div class="panel-heading">
+                 <h4 class="panel-title">
+            <a data-toggle="collapse" data-target="#collapseOne" 
+               href="#collapseOne">Gestiune utilizatori </a>
+          </h4>
+            </div>
+            <div id="collapseOne" class="panel-collapse collapse in">
+                <div class="panel-body">
+                  <%= link_to "Cauta o carte in colectie", books_path, :class => "btn btn-danger btn-block" %>
+                  <%= link_to "Imprumuta o carte",'#', :class => "btn btn-success btn-block" %>
+                  <%= link_to "Cauta o rezervare", '#', :class => "btn btn-warning btn-block" %>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default" id="panel2">
+            <div class="panel-heading">
+                 <h4 class="panel-title">
+            <a data-toggle="collapse" data-target="#collapseTwo" 
+               href="#collapseTwo" class="collapsed">Gestiune biblioteca
+            </a>
+          </h4>
+            </div>
+            <div id="collapseTwo" class="panel-collapse collapse">
+                <div class="panel-body">
+                  <div clas="row">
+                    <div class="col-md-6 col-xs-12"><%= link_to "Adauga o carte", new_book_path, :class => "btn btn-default btn-block" %></div>
+                    <div class="col-md-6 col-xs-12"><%= link_to "Actualizeaza o carte", books_path, :class => "btn btn-default btn-block" %></div>
+                  </div>
+
+                  <div clas="row">
+                    <div class="col-md-6 col-xs-12"><%= link_to "Adauga un domeniu", '#', :class => "btn btn-default btn-block" %></div>
+                    <div class="col-md-6 col-xs-12"><%= link_to "Actualizeaza un domeniu", '#', :class => "btn btn-default btn-block" %></div>
+                  </div>
+
+                  <div clas="row">
+                    <div class="col-md-6 col-xs-12"><%= link_to "Adauga o editura", '#', :class => "btn btn-default btn-block" %></div>
+                    <div class="col-md-6 col-xs-12"><%= link_to "Actualizeaza o editura", '#', :class => "btn btn-default btn-block" %></div>
+                  </div>
+
+                  <div clas="row">
+                    <div class="col-md-6 col-xs-12"><%= link_to "Adauga o biblioteca", '#', :class => "btn btn-default btn-block" %></div>
+                    <div class="col-md-6 col-xs-12"><%= link_to "Actualizeaza o biblioteca", '#', :class => "btn btn-default btn-block" %></div>
+                  </div>
+
+                </div>
+            </div>
+        </div>
+
+</div>
