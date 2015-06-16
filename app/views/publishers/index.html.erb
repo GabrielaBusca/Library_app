@@ -17,8 +17,8 @@
 				  <div class="media-body">
 				    <h4 class="media-heading"></h4>
 				    <b> Titlu: </b> <%= publisher["titlu"] %> <br>
-				    <b> Data aparitie: </b> <%= publisher["data_aparitie"] %> <br>
-				    <b> Data adaugare: </b> <%= publisher["data_adaugare"] %> <br>
+				    <b> Data aparitie: </b> <%= publisher["data_aparitie"].year %> <br>
+				    <b> Data adaugare: </b> <%= publisher["data_adaugare"].strftime("%d-%m-%Y") %> <br>
 				  </div>
 				</div>
 

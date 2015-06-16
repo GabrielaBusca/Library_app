@@ -6,6 +6,7 @@
 		<th> Autor </th>
 		<th> Editura </th>
 		<th> Domeniu </th>
+		<th> Biblioteca </th>
 	</thead>
 	<tbody>
 	  <% @books.each do |book| %>
@@ -16,6 +17,7 @@
 			<td> <%= book["autor"] %></td>
 			<td> <%= book["editura"] %></td>
 			<td> <%= book["domeniu"] %></td>
+			<td> <%= book["biblioteca"] %> </td>
 		</tr>
 	  <% end %>
 	</tbody>

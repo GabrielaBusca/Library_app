@@ -39,6 +39,7 @@ GEM
       execjs
       json
     bcrypt (3.1.10-x86-mingw32)
+    bootstrap-filestyle-rails (1.1.2)
     bootstrap-sass (3.3.4.1)
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.2.19)
@@ -153,6 +154,7 @@ PLATFORMS
 
 DEPENDENCIES
   activerecord-oracle_enhanced-adapter!
+  bootstrap-filestyle-rails
   bootstrap-sass
   carrierwave
   coffee-rails (~> 4.0.0)

@@ -8,7 +8,7 @@ class AuthorsController < ApplicationController
 					where c.id_autor = a.id
 					group by a.id"
 		@authors = ActiveRecord::Base.connection.exec_query(sql_query).to_a
-		@authors = @authors.paginate(:page => params[:page], :per_page => 10)
+		@authors = @authors.paginate(:page => params[:page], :per_page => 5)
 	end
 
 	def show

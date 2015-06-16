@@ -16,8 +16,12 @@ Rails.application.routes.draw do
     resources :votes, :only => [:create]
   end
 
+  resources :users, :only => [:show, :index] 
+  
   resources :admin, :only => [:index]
   resources :borrows, :only => [:new, :create, :index]
+
+  resources :libraries, :only => [:index, :show]
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

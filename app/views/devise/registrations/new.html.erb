@@ -6,12 +6,20 @@
   <%= f.error_notification %>
 
   <div class="form-inputs">
+    <label class="control-label"> Nume </label>
+    <%= f.input :name, required: true, autofocus: true, :input_html => {:class => 'form-control'}, :label => false %>
+    <label class="control-label"> Prenume </label>
+    <%= f.input :surname, required: true, autofocus: true, :input_html => {:class => 'form-control'}, :label => false %>
+    <label class="control-label"> Adresa </label>
+    <%= f.input :address, required: true, autofocus: true, :input_html => {:class => 'form-control'}, :label => false %>
     <label class="control-label"> Email </label>
-    <%= f.input :email, required: true, autofocus: true, :input_html => {:class => 'form-control'}, :label => false %>
+    <%= f.input :email, required: true, :input_html => {:class => 'form-control'}, :label => false %>
     <label class="control-label"> Parola </label>
     <%= f.input :password, required: true, hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length), :input_html => {:class => 'form-control'},:label => false %>
     <label class="control-label"> Confirmare parola </label>
     <%= f.input :password_confirmation, required: true, :input_html => {:class => 'form-control'}, :label => false %>
+    <label class="control-label"> Telefon </label>
+    <%= f.input :telephone, required: true, autofocus: true, :input_html => {:class => 'form-control'}, :label => false %>
   </div>
 
   <div class="form-actions">

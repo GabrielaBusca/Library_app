@@ -49,4 +49,5 @@ gem 'carrierwave'
 gem 'will_paginate-bootstrap'
 
 gem 'devise'
+gem 'bootstrap-filestyle-rails'
 

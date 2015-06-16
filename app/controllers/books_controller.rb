@@ -43,6 +43,24 @@ class BooksController < ApplicationController
 					c.id_domeniu = d.id  and 
 					c.id = " + params[:id]
 		@book = ActiveRecord::Base.connection.exec_query(sql_query).to_a.first
+
+		if user_signed_in? and current_user.user_type == 'employee' then
+			sql_query = "select i.*, s.name as nume, s.surname as prenume, b.nume as biblioteca 
+						from imprumut i, users s, biblioteca b
+						where data_returnare is null
+						and id_carte = " +params[:id].to_s+" and
+						i.id_user  = s.id and
+						b.id = i.id_biblioteca"
+			@borrowed_books = ActiveRecord::Base.connection.exec_query(sql_query).to_a
+
+			sql_query = "select i.*, s.name as nume, s.surname as prenume, b.nume as biblioteca 
+						from rezervare i, users s, biblioteca b
+						where id_carte = " +params[:id].to_s+" and
+						i.id_user  = s.id and
+						b.id = i.id_biblioteca"
+			@reserved_books = ActiveRecord::Base.connection.exec_query(sql_query).to_a
+		end
+
 	end
 
 	def instances

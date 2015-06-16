@@ -12,9 +12,9 @@
 	    <table class="table">
 	    	<tr>
 	    		<th> Data aparitie: </th> 
-	    		<td> <%= book["data_aparitie"] %> </td>
+	    		<td> <%= book["data_aparitie"].year %> </td>
 		    	<th> Data adaugare: </th> 
-		    	<td> <%= book["data_adaugare"] %> </td>
+		    	<td> <%= book["data_adaugare"].strftime("%d-%m-%Y") %> </td>
 		    </tr>
 		    <tr>	
 		    	<th> Cod ISBN: </th> 

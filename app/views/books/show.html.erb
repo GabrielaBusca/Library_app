@@ -18,16 +18,32 @@
 		}
 	};
 </script>
+<style>
+#vote1, #vote2, #vote3 {
+	color: orange;
+}
+#vote4, #vote5 {
+	color: rgb(181, 179, 179);
+}
+</style>
 
 <div class="page-header">
-	<div class="book-vote pull-right">
-		<button id="vote1" class="btn-link" onmouseover="color(1)"  onmouseleave="decolor(1)" onclick="vote(1)"> <i class="fa fa-star fa-2" ></i></button>
-		<button id="vote2" class="btn-link" onmouseover="color(2)" onmouseleave="decolor(2)" onclick="vote(2)"> <i class="fa fa-star fa-2"></i></button>
-		<button id="vote3" class="btn-link" onmouseover="color(3)" onmouseleave="decolor(3)" onclick="vote(3)"> <i class="fa fa-star fa-2"></i></button>
-		<button id="vote4" class="btn-link" onmouseover="color(4)" onmouseleave="decolor(4)" onclick="vote(4)"> <i class="fa fa-star fa-2"></i></button>
-		<button id="vote5" class="btn-link" onmouseover="color(5)" onmouseleave="decolor(5)" onclick="vote(5)"> <i class="fa fa-star fa-2"></i></button>
+	<% if user_signed_in? and current_user.user_type == 'employee' %>
+	<div class="btn btn-group pull-right">
+		<%=link_to "Inchiriaza", "#", :class => "btn btn-primary" %>
+		<%= link_to "Editeaza", "#", :class => "btn btn-warning" %>
 	</div>
+	<% end %>
 	<h3> <%= @book["titlu"] %> </h3>
+	<% if user_signed_in? %>
+		<div class="book-vote">
+			<button id="vote1" class="btn-link" onmouseover="color(1)"  onmouseleave="decolor(1)" onclick="vote(1)"> <i class="fa fa-star fa-2" ></i></button>
+			<button id="vote2" class="btn-link" onmouseover="color(2)" onmouseleave="decolor(2)" onclick="vote(2)"> <i class="fa fa-star fa-2"></i></button>
+			<button id="vote3" class="btn-link" onmouseover="color(3)" onmouseleave="decolor(3)" onclick="vote(3)"> <i class="fa fa-star fa-2"></i></button>
+			<button id="vote4" class="btn-link" onmouseover="color(4)" onmouseleave="decolor(4)" onclick="vote(4)"> <i class="fa fa-star fa-2"></i></button>
+			<button id="vote5" class="btn-link" onmouseover="color(5)" onmouseleave="decolor(5)" onclick="vote(5)"> <i class="fa fa-star fa-2"></i></button>
+		</div>
+	<% end %>
 </div>
 
 <div class="book-content well">
@@ -35,13 +51,13 @@
 	      <%= image_tag "/uploads/book/" + @book["imagine_coperta"] if @book["imagine_coperta"].present? %>
 	</div>
 	<div class="media-body">
-		<h4> <b> Informatii carte: </b> </h4>
+		<h4> <b> Informații carte: </b> </h4>
 		<table class="table">
 	    	<tr>
 	    		<th> Anul aparitiei: </th> 
 	    		<td> <%= @book["data_aparitie"].year %> </td>
 		    	<th> Data adaugarii: </th> 
-		    	<td> <%= @book["data_adaugare"] %> </td>
+		    	<td> <%= @book["data_adaugare"].strftime("%d-%m-%Y") %> </td>
 		    </tr>
 		    <tr>	
 		    	<th> Cod ISBN: </th> 
@@ -58,24 +74,35 @@
 	    </table>
 	</div>
 
+
 	<div>
 		<h4> <b>Descriere: </b> </h4>
 		<div class="description-book">
 			<i> <%= @book["descriere"] %> </i>
 		</div>
 	</div>
-
+	
 </div>
 
 <div class ="book-location" >
-	<h4> Unde pot gasi aceasta carte ? </h4> 
+	<% if user_signed_in? and current_user.user_type == 'employee' %>
+		<h4> Disponibilitate </h4>
+	<% else %>
+		<h4> Unde pot găsi această carte ? </h4> 
+	<% end %>
 	<table class="table ">
 		<thead>
 			<tr>
 				<th> Nume </th>
 				<th> Adresa </th>
-				<th> Nr exemplare totale </th>
-				<th> Nr exemplare imprumutate </th>
+				<% if user_signed_in? %>
+					<th> Nr exemplare totale </th>
+					<th> Nr exemplare imprumutate </th>
+					<th> Nr exemplare rezervate </th>
+					<% if !current_user.user_type %>
+						<th> </th>
+					<% end %>
+				<% end %>
 			</tr>
 		</thead>
 		<tbody>
@@ -83,10 +110,70 @@
 				<tr> 
 					<td> <%= instance["nume"] %> </td>
 					<td> <%= instance["adresa"] %> </td>
-					<td> <%= instance["exemplare"] %> </td>
-					<td>  </td>
+					<% if user_signed_in? %>
+						<td> <%= instance["exemplare"] %> </td>
+						<td> 3 </td>
+						<td> 0 </td> 
+						<% if !current_user.user_type %>
+								<td> <%= link_to "Rezervă", "#" %> </td>
+						<% end %>
+					<% end %>
 				</tr>
 			<% end %>
 		</tbody>
 	</table>
 </div>
+
+<% if user_signed_in? and current_user.user_type == 'employee' %>
+<div class="borrowed-books">
+    <h4> Inchirieri active</h4> 
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th> Biblioteca </th> 
+				<th> Client </th>
+				<th> Data inchiriere </th>
+				<th> Data inapoiere </th>
+				<th> </th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @borrowed_books.each do |book| %>
+				<tr>
+					<td> <%= book["biblioteca"] %> </td>
+					<td> <%= book["nume"] +' ' + book["prenume"] %> </td>
+					<td> <%= book["data_imprumut"] %> </td>
+					<td> <%= book["data_inapoiere"] %> </td>
+					<td><%= link_to "Inapoiere" , '#', :class => "btn btn-xs btn-success pull-right" %> </td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>
+
+<div class="reserved-books">
+    <h4> Rezervari active</h4> 
+	<table class="table table-hover">
+		<thead>
+			<tr>
+				<th> Biblioteca </th> 
+				<th> Client </th>
+				<th> Data rezervare </th>
+				<th> </th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @reserved_books.each do |book| %>
+				<tr>
+					<td> <%= book["biblioteca"] %> </td>
+					<td> <%= book["nume"] +' ' + book["prenume"] %> </td>
+					<td> <%= book["data_rezervare"] %> </td>
+					<td><div class="btn btn-group pull-right"> <%= link_to "Inchiriaza" , '#', :class => "btn btn-xs btn-primary" %>
+						<%= link_to "Anuleaza" , '#', :class => "btn btn-xs btn-danger" %> </div> </td> 
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+</div>
+
+<% end %>
