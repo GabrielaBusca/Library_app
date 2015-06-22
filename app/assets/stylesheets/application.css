@@ -29,3 +29,6 @@
 	margin-top : 1%;
 	margin-bottom: 1%;
 }
+.page-header, .panel {
+	text-align:center;
+}

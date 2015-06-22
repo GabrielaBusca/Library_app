@@ -1,0 +1,32 @@
+<div class="page-header">
+	<h3>Cele mai noi cărți apărute </h3>
+</div>
+
+<div class="books-content">
+ 	<% @news_books.each do |book| %>
+ 	  <%= link_to book_path(book["id"]) do %>
+ 	  <div class="panel panel-default panel-book">
+		<div class="book-box panel-heading"> 
+			<h4> <%= book["titlu"] %> </h4>
+		</div>
+		<div class="row panel-body">
+
+				<div class="media book-content">
+				  <div class="media-left">				    
+				      <%= image_tag "/uploads/book/" + book["imagine_coperta"] if book["imagine_coperta"].present? %>
+				  </div>
+				  <div class="media-body">
+				    <h4 class="media-heading"></h4>
+				    <b> Titlu: </b> <%= book["titlu"] %> <br>
+				    <b> Data aparitie: </b> <%= book["data_aparitie"] %> <br>
+				    <b> Data adaugare: </b> <%= book["data_adaugare"] %> <br>
+				    <b> Domeniu: </b> <%= book["domeniu"] %> <br>
+				    <b> Editura: </b> <%= book["editura"] %> <br>
+				    <b> Autor: </b> <%= book["autor"] %> <br>
+				  </div>
+				</div>
+		</div>
+	  </div>
+	  <% end %>
+	 <% end %>
+</div>

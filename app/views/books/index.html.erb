@@ -14,7 +14,7 @@
 				<label class="control-label">Autor: </label>
 			</div>
 			<div class="col-md-5 col-xs-10">
-				<%= text_field_tag :author, nil, placeholder: "Autor", :class => "form-control" %>
+				<%= select_tag :author, options_from_collection_for_select(@authors, "id", "nume"),:class => "form-control"%>
 			</div>
 		</div>
 		<div class="row">

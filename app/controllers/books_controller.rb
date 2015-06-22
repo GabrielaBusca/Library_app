@@ -11,8 +11,22 @@ class BooksController < ApplicationController
 					order by c.data_aparitie desc"
 		@books = ActiveRecord::Base.connection.exec_query(sql_query).to_a
 		@books = @books.paginate(:page => params[:page], :per_page => 5)
+		
 		@domains = Domain.all
 		@publishers = Publisher.all
+		@authors = Author.all
+	end
+
+	def news
+		sql_query = "select top.*
+					from ( SELECT c.*, d.nume AS domeniu, e.nume AS editura, a.returneaza_nume_intreg() AS autor
+					        FROM carte c, editura e, domeniu d, autor a
+					        WHERE c.id_autor = a.id AND
+					        c.id_editura = e.id AND
+					        c.id_domeniu = d.id 
+					        ORDER BY c.data_aparitie, c.data_adaugare DESC) top
+					where rownum < 10"
+		@news_books = ActiveRecord::Base.connection.exec_query(sql_query).to_a
 	end
 
 	def new

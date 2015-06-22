@@ -12,6 +12,8 @@ Rails.application.routes.draw do
   resources :domains, :only => [:index, :show]
   resources :authors, :only => [:index, :show]
   
+  get '/books/news' => 'books#news'
+
   resources :books do
     resources :votes, :only => [:create]
   end
@@ -22,6 +24,8 @@ Rails.application.routes.draw do
   resources :borrows, :only => [:new, :create, :index]
 
   resources :libraries, :only => [:index, :show]
+
+
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

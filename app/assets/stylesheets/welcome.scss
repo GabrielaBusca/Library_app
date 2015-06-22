@@ -9,9 +9,7 @@
   font-size: 50px;
   text-shadow: rgba(0,0,0,0.12) 3px 3px 0;
 }
-.welcome-content .raw {
-	margin-top: 5em;
-}
+
 .welcome-content .raw .content-box-1 i {
 	color:rgb(207, 32, 32);
 }
@@ -37,4 +35,14 @@
 }
 .welcome-content .raw > div {
 	margin-top: 5em;
+	margin-bottom: 5em;
+}
+
+body {
+	background-image: image-url("library4.jpg");
+}
+body .container {
+	background-color: rgba(248, 248, 248, .9);
+	//min-height: 70em;
+	margin-bottom: 20px;
 }
