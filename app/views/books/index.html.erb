@@ -8,27 +8,27 @@
 				<label class="control-label">Titlu: </label>
 			</div>
 			<div class="col-md-5 col-xs-10">
-				<%= text_field_tag :title, nil, placeholder: "Titlu", :class => "form-control" %>
+				<%= text_field_tag :title, params[:title], placeholder: "Caută titlu", :class => "form-control"  %>
 			</div>
 			<div class="col-md-1 col-xs-2">
 				<label class="control-label">Autor: </label>
 			</div>
 			<div class="col-md-5 col-xs-10">
-				<%= select_tag :author, options_from_collection_for_select(@authors, "id", "nume"),:class => "form-control"%>
+				<%= select_tag :author, options_for_select(@authors.collect{ |u| [u["nume"] + " " + u["prenume"], u.id] }, params[:author]), :class => "form-control", :prompt  => "Selectează autor"%>
 			</div>
 		</div>
 		<div class="row">
 			<div class="col-md-1 col-xs-2">
-				<label class="control-label">Editura: </label>
+				<label class="control-label">Editură: </label>
 			</div>
 			<div class="col-md-5 col-xs-12">
-				<%= select_tag :publisher, options_from_collection_for_select(@publishers, "id", "nume"),:class => "form-control"%>
+				<%= select_tag :publisher, options_from_collection_for_select(@publishers, "id", "nume", params[:publisher]),:class => "form-control", :prompt  => "Selectează editura"%>
 			</div>
 			<div class="col-md-1 col-xs-2">
 				<label class="control-label">Domeniu: </label>
 			</div>
 			<div class="col-md-5 col-xs-12">
-				<%= select_tag :domain, options_from_collection_for_select(@domains, "id", "nume"), :class => "form-control"%>
+				<%= select_tag :domain, options_from_collection_for_select(@domains, "id", "nume", params[:domain]), :class => "form-control", :prompt  => "Selectează domeniu"%>
 			</div>
 		</div>
 	    <div>

@@ -20,7 +20,9 @@
 			<td> <%= book["biblioteca"] %> </td>
 			<td> <%= book["data_imprumut"].strftime("%d-%m-%Y") %> </td>
 			<td> <%= book["data_inapoiere"].strftime("%d-%m-%Y") %> </td>
-			<td> <%= link_to "Prelungește termenul", "#" %> </td>
+			<td> <% if user_extension(book["id"]).length == 0 then %> 
+					<%= link_to "Prelungeste termenul" , '/borrows/'+ book["id"].to_s + '/extensions', :method => :post, :class => "btn btn-xs btn-primary" %> 
+				<% end %> </td>
 		  </tr>
 		<% end %>
 		</tbody>
@@ -47,7 +49,10 @@
 			<td> <%= link_to book["carte"], book_path(book["id_carte"]) %> </td>
 			<td> <%= book["biblioteca"] %> </td>
 			<td> <%= book["data_rezervare"].strftime("%d-%m-%Y") %> </td>
-			<td> <%= link_to "Anulează", "#" %> </td>
+			<td> <%= link_to "Anuleaza" , reservation_path(book["id"]), 
+							:method => :delete, 
+							data: { confirm: 'Esti sigur?' },
+							:class => "btn btn-xs btn-danger" %> </td>
 		  </tr>
 		<% end %>
 		</tbody>

@@ -15,17 +15,28 @@ Rails.application.routes.draw do
   get '/books/news' => 'books#news'
 
   resources :books do
-    resources :votes, :only => [:create]
+    resources :votes, :only => [:create, :index]
+    resources :borrows, :only => [:new, :create]
   end
 
   resources :users, :only => [:show, :index] 
   
   resources :admin, :only => [:index]
-  resources :borrows, :only => [:new, :create, :index]
+  resources :borrows, :only => [:index, :update]
 
-  resources :libraries, :only => [:index, :show]
+  resources :libraries, :only => [:index, :show] do
+    resources :books, :only => [] do
+      resources :reservations, :only => [:create]
+    end
+  end
 
+  resources :reservations, :only => [:destroy] do
+    get '/borrow/new' => 'reservations#new_borrow'
+    post '/borrow' => 'reservations#create_borrow'
+  end
 
+  post '/borrows/:id/extension' => 'borrows#extension'
+  post '/borrows/:id/extensions' => 'extensions#create'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

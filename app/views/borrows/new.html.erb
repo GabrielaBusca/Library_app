@@ -2,24 +2,39 @@
 	<h3> Imprumuta </h3>
 </div>
 
-<%= simple_form_for @borrow, :html => { :class => 'form-horizontal' } do |f| %>
+<%= simple_form_for( @borrow, :url => book_borrows_path(params[:book_id]) ) do |f| %>
 	<div class="select-form">
 		<h4>Selecteaza clientul </h4>
 		<%= render :partial => 'users/list' %>
 	</div>
 	<div class="select-form">
-		<h4>Selecteaza cartea</h4>
-	    <%= render :partial => 'books/minimal_list' %>
+		<h4>Selecteaza biblioteca</h4>
+	    <table class="table ">
+	    	<thead>
+	    		<tr>
+	    			<th> </th>
+	    			<th> Nume biblioteca </th>
+	    			<th> Adresa </th>
+	    		</tr>
+	    	</thead>
+	    	<tbody>
+	    		<% @libraries.each do |library| %>
+	    			<tr>
+	    				<td> <input type="radio" name="borrow[id_biblioteca]" value='<%=library["id_biblioteca"]%>'> </td>
+	    				<td> <%= library["nume"] %> </td>
+	    				<td> <%= library["adresa"] %> </td>
+	    			</tr>
+	    		<% end %>
+	    	</tbody>
+	    </table>
 	</div>
 	<div class="select-form">
 		<h4>Finalizare</h4>
 		<table class="table">
 			<tr>
-				<th>Data imprumut</th>
 				<th>Data inapoiere</th>
 			</tr>
 			<tr> 
-				<td><%= f.input :data_imprumut, :label => false %></td>
 				<td><%= f.input :data_inapoiere, :label => false%></td>
 			</tr>
 		</table>

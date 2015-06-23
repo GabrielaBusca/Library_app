@@ -44,6 +44,7 @@ gem 'simple_form'
 gem 'bootstrap-sass'
 gem 'font-awesome-sass'
 
+gem 'ruby-plsql'
 gem 'libv8', '3.3.10.4'
 gem 'carrierwave'
 gem 'will_paginate-bootstrap'

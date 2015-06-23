@@ -1,4 +1,4 @@
-<!-- <div class="page-header" >
+<div class="page-header" >
 	<h3> <%= user.name + ' ' + user.surname %> </h3>
 </div>
 <div class="user-details well" >
@@ -18,29 +18,6 @@
 		<tr>
 			<th> Adresa: </th>
 			<td col-span="3"> <%= user.address %> </td> 
-		</tr>
-	</table>
-</div> -->
-<div class="page-header" >
-	<h3> Ionescu Andreea - Mariana </h3>
-</div>
-<div class="user-details well" >
-	<table class="table">
-		<tr>
-			<th> Nume: </th>
-			<td> Ionescu </td> 
-			<th> Prenume: </th>
-			<td> Andreea - Mariana </td> 
-		</tr>
-		<tr>
-			<th> Email: </th>
-			<td> ionescu_andreaa@yahoo.com </td> 
-			<th> Telefon: </th>
-			<td> 0723 12 34 56 </td> 
-		</tr>
-		<tr>
-			<th> Adresa: </th>
-			<td col-span="3"> Bucureşti - Zona 1, Bd. ŞOS. ŞTEFAN CEL MARE nr. 15 bl. 15 </td> 
 		</tr>
 	</table>
 </div>
@@ -72,14 +49,14 @@
 					<td> <%= book["biblioteca"] %> </td>
 					<td> <%= book["data_imprumut"].strftime("%d-%m-%Y") %> </td>
 					<td> <%= book["data_inapoiere"].strftime("%d-%m-%Y") %> </td>
-					<td> <%= (prelungire(book["id"]))["data_prelungire"].strftime("%d-%m-%Y") if (prelungire(book["id"])) %> </td>
+					<td> <%= "Da" if (prelungire(book["id"])) %> </td>
 					<td><div class="btn btn-group pull-right"> 
 						<% if (prelungire(book["id"])) then %>
-							<%= link_to "Confirma" , '#', :class => "btn btn-xs btn-warning" %>	
+							<%= link_to "Confirma" , '/borrows/'+book["id"].to_s+'/extension', :method => :post, :class => "btn btn-xs btn-warning" %>
 						<% else %>
-							<%= link_to "Prelungire" , '#', :class => "btn btn-xs btn-primary" %>
+							<%= link_to "Prelungire" , '/borrows/'+book["id"].to_s+'/extension', :method => :post, :class => "btn btn-xs btn-primary" %>
 						<% end %>
-						<%= link_to "Inapoiere" , '#', :class => "btn btn-xs btn-success" %> </div> </td>
+						<%= link_to "Inapoiere", borrow_path(book["id"]), :method => :put, :class => "btn btn-xs btn-success" %> </div> </td>
 				  </tr>
 				<% end %>
 				</tbody>
@@ -110,8 +87,11 @@
 					<td> <%= link_to book["carte"], book_path(book["id_carte"]) %> </td>
 					<td> <%= book["biblioteca"] %> </td>
 					<td> <%= book["data_rezervare"].strftime("%d-%m-%Y") %> </td>
-					<td><div class="btn btn-group pull-right"> <%= link_to "Inchiriere" , '#', :class => "btn btn-xs btn-warning" %>
-								<%= link_to "Anulare" , '#', :class => "btn btn-xs btn-danger" %> </div> </td>
+					<td><div class="btn btn-group pull-right"> <%= link_to "Inchiriaza" , reservation_borrow_new_path(book["id"]), :class => "btn btn-xs btn-warning" %>
+						<%= link_to "Anuleaza" , reservation_path(book["id"]), 
+							:method => :delete, 
+							data: { confirm: 'Esti sigur?' },
+							:class => "btn btn-xs btn-danger" %> </div> </td>
 				  </tr>
 				<% end %>
 				</tbody>
@@ -127,7 +107,28 @@
       </div>
       <div id="collapse3" class="panel-collapse collapse">
         <div class="panel-body">
-        	
+        	<table class="table table-hover" >
+				<thead>
+					<tr>
+						<th> Carte </th>
+						<th> Biblioteca </th>
+						<th> Data imprumut </th>
+						<th> Data inapoiere </th>
+						<th> Data returnare </th>
+					</tr>
+				</thead>
+				<tbody>
+				<% @history_books.each do |book| %>
+				  <tr>
+					<td> <%= link_to book["carte"], book_path(book["id_carte"]) %> </td>
+					<td> <%= book["biblioteca"] %> </td>
+					<td> <%= book["data_imprumut"].strftime("%d-%m-%Y") %> </td>
+					<td> <%= book["data_inapoiere"].strftime("%d-%m-%Y") %> </td>
+					<td> <%= book["data_returnare"].strftime("%d-%m-%Y") %> </td>
+				  </tr>
+				<% end %>
+				</tbody>
+			</table>
         </div>
       </div>
     </div>

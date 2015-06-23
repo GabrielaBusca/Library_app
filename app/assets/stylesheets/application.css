@@ -32,3 +32,6 @@
 .page-header, .panel {
 	text-align:center;
 }
+.container {
+	padding: 1em;
+}

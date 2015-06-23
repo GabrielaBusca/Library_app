@@ -1,22 +1,32 @@
 <script>
 	var vote = function(i) {
 		$.ajax({
-		    url:  "/books/57/votes",
+		    url:  "/books/" + <%= params[:id] %> + "/votes",
 		    type: "POST",
-		    data: {vote: i},
-		    success: function(resp){ console.log(resp); }
+		    data: {vote_number: i},
+		    success: function(resp){ alert(resp.message); }
 		})
 	};
 	var color = function(i) {
 		for (var j = 1; j <= i; j++){
-			document.getElementById("vote"+j).style.color = '#FFFF00';
+			document.getElementById("vote"+j).style.color = 'rgb(52, 75, 229)';
 		}
 	};
-	var decolor = function(i) {
-		for (var j = 1; j <= i; j++){
-			document.getElementById("vote"+j).style.color = 'rgb(181, 179, 179)';
-		}
-	};
+	var initialize = function() {
+		$.ajax({
+		    url:  "/books/" + <%= params[:id] %> + "/votes",
+		    type: "GET",
+		    success: function(resp){ 
+		    	for (var j = 1; j <= resp.vote; j++){
+					document.getElementById("vote"+j).style.color = 'rgb(52, 75, 229)';
+				}
+				for (var j = resp.vote + 1; j <= 5; j++){
+					document.getElementById("vote"+j).style.color = 'rgb(181, 179, 179)';
+				}
+		    }
+		})
+	}
+	$(document).ready(initialize)
 </script>
 <style>
 #vote1, #vote2, #vote3 {
@@ -30,18 +40,18 @@
 <div class="page-header">
 	<% if user_signed_in? and current_user.user_type == 'employee' %>
 	<div class="btn btn-group pull-right">
-		<%=link_to "Inchiriaza", "#", :class => "btn btn-primary" %>
-		<%= link_to "Editeaza", "#", :class => "btn btn-warning" %>
+		<%=link_to "Împrumută", new_book_borrow_path(@book["id"]), :class => "btn btn-primary" %>
+		<%= link_to "Editează", "#", :class => "btn btn-warning" %>
 	</div>
 	<% end %>
 	<h3> <%= @book["titlu"] %> </h3>
 	<% if user_signed_in? %>
-		<div class="book-vote">
-			<button id="vote1" class="btn-link" onmouseover="color(1)"  onmouseleave="decolor(1)" onclick="vote(1)"> <i class="fa fa-star fa-2" ></i></button>
-			<button id="vote2" class="btn-link" onmouseover="color(2)" onmouseleave="decolor(2)" onclick="vote(2)"> <i class="fa fa-star fa-2"></i></button>
-			<button id="vote3" class="btn-link" onmouseover="color(3)" onmouseleave="decolor(3)" onclick="vote(3)"> <i class="fa fa-star fa-2"></i></button>
-			<button id="vote4" class="btn-link" onmouseover="color(4)" onmouseleave="decolor(4)" onclick="vote(4)"> <i class="fa fa-star fa-2"></i></button>
-			<button id="vote5" class="btn-link" onmouseover="color(5)" onmouseleave="decolor(5)" onclick="vote(5)"> <i class="fa fa-star fa-2"></i></button>
+		<div class="book-vote" onload = "initialize(<%= @vote %>)">
+			<button id="vote1" class="btn-link" onmouseover="color(1)"  onmouseleave="initialize()" onclick="vote(1)"> <i class="fa fa-star fa-2" ></i></button>
+			<button id="vote2" class="btn-link" onmouseover="color(2)" onmouseleave="initialize()" onclick="vote(2)"> <i class="fa fa-star fa-2"></i></button>
+			<button id="vote3" class="btn-link" onmouseover="color(3)" onmouseleave="initialize()" onclick="vote(3)"> <i class="fa fa-star fa-2"></i></button>
+			<button id="vote4" class="btn-link" onmouseover="color(4)" onmouseleave="initialize()" onclick="vote(4)"> <i class="fa fa-star fa-2"></i></button>
+			<button id="vote5" class="btn-link" onmouseover="color(5)" onmouseleave="initialize()" onclick="vote(5)"> <i class="fa fa-star fa-2"></i></button>
 		</div>
 	<% end %>
 </div>
@@ -54,9 +64,9 @@
 		<h4> <b> Informații carte: </b> </h4>
 		<table class="table">
 	    	<tr>
-	    		<th> Anul aparitiei: </th> 
+	    		<th> Anul apariției: </th> 
 	    		<td> <%= @book["data_aparitie"].year %> </td>
-		    	<th> Data adaugarii: </th> 
+		    	<th> Data adăugării: </th> 
 		    	<td> <%= @book["data_adaugare"].strftime("%d-%m-%Y") %> </td>
 		    </tr>
 		    <tr>	
@@ -66,7 +76,7 @@
 		    	<td> <%= @book["autor"] %> </td>
 		    </tr>
 		    <tr>	
-		    	<th> Editura: </th> 
+		    	<th> Editură: </th> 
 		    	<td> <%= @book["editura"] %> </td>
 		    	<th> Domeniu: </th> 
 		    	<td> <%= @book["domeniu"] %> </td>
@@ -94,10 +104,10 @@
 		<thead>
 			<tr>
 				<th> Nume </th>
-				<th> Adresa </th>
+				<th> Adresă </th>
 				<% if user_signed_in? %>
 					<th> Nr exemplare totale </th>
-					<th> Nr exemplare imprumutate </th>
+					<th> Nr exemplare împrumutate </th>
 					<th> Nr exemplare rezervate </th>
 					<% if !current_user.user_type %>
 						<th> </th>
@@ -106,16 +116,16 @@
 			</tr>
 		</thead>
 		<tbody>
-			<% instances.each do |instance| %>
+			<% @details.each do |detail| %>
 				<tr> 
-					<td> <%= instance["nume"] %> </td>
-					<td> <%= instance["adresa"] %> </td>
+					<td> <%= detail["nume"] %> </td>
+					<td> <%= detail["adresa"] %> </td>
 					<% if user_signed_in? %>
-						<td> <%= instance["exemplare"] %> </td>
-						<td> 3 </td>
-						<td> 0 </td> 
+						<td> <%= detail["total"] %> </td>
+						<td> <%= detail["imprumuturi"] %> </td>
+						<td> <%= detail["rezervari"] %> </td> 
 						<% if !current_user.user_type %>
-								<td> <%= link_to "Rezervă", "#" %> </td>
+								<td> <%= link_to "Rezervă", library_book_reservations_path(detail["id_biblioteca"], params[:id]), :method => :post, :class => "btn btn-xs btn-success" %> </td>
 						<% end %>
 					<% end %>
 				</tr>
@@ -132,8 +142,8 @@
 			<tr>
 				<th> Biblioteca </th> 
 				<th> Client </th>
-				<th> Data inchiriere </th>
-				<th> Data inapoiere </th>
+				<th> Dată împrumut </th>
+				<th> Data înapoiere </th>
 				<th> </th>
 			</tr>
 		</thead>
@@ -142,9 +152,9 @@
 				<tr>
 					<td> <%= book["biblioteca"] %> </td>
 					<td> <%= book["nume"] +' ' + book["prenume"] %> </td>
-					<td> <%= book["data_imprumut"] %> </td>
-					<td> <%= book["data_inapoiere"] %> </td>
-					<td><%= link_to "Inapoiere" , '#', :class => "btn btn-xs btn-success pull-right" %> </td>
+					<td> <%= book["data_imprumut"].strftime("%d-%m-%Y") %> </td>
+					<td> <%= book["data_inapoiere"].strftime("%d-%m-%Y") %> </td>
+					<td><%= link_to "Inapoiere", borrow_path(book["id"]), :method => :put, :class => "btn btn-xs btn-success pull-right" %> </td>
 				</tr>
 			<% end %>
 		</tbody>
@@ -167,9 +177,12 @@
 				<tr>
 					<td> <%= book["biblioteca"] %> </td>
 					<td> <%= book["nume"] +' ' + book["prenume"] %> </td>
-					<td> <%= book["data_rezervare"] %> </td>
-					<td><div class="btn btn-group pull-right"> <%= link_to "Inchiriaza" , '#', :class => "btn btn-xs btn-primary" %>
-						<%= link_to "Anuleaza" , '#', :class => "btn btn-xs btn-danger" %> </div> </td> 
+					<td> <%= book["data_rezervare"].strftime("%d-%m-%Y") %> </td>
+					<td><div class="btn btn-group pull-right"> <%= link_to "Inchiriaza" , reservation_borrow_new_path(book["id"]), :class => "btn btn-xs btn-primary" %>
+						<%= link_to "Anuleaza" , reservation_path(book["id"]), 
+							:method => :delete, 
+							data: { confirm: 'Esti sigur?' },
+							:class => "btn btn-xs btn-danger" %> </div> </td> 
 				</tr>
 			<% end %>
 		</tbody>

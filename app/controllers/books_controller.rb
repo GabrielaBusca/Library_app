@@ -1,14 +1,24 @@
 class BooksController < ApplicationController
 
-	helper_method :instances
-
 	def index
 		sql_query = "select c.*, d.nume as domeniu, e.nume as editura, a.returneaza_nume_intreg() as autor
 					from carte c, editura e, domeniu d, autor a
 					where c.id_autor = a.id and 
 					c.id_editura = e.id and 
-					c.id_domeniu = d.id
-					order by c.data_aparitie desc"
+					c.id_domeniu = d.id"
+		if params[:title] && params[:title] != "" then
+			sql_query += " and titlu like '%#{params[:title]}%' "
+		end
+		if params[:publisher] && params[:publisher] != "" then
+			sql_query += " and e.id = '#{params[:publisher]}' "
+		end
+		if params[:domain] && params[:domain] != "" then
+			sql_query += " and d.id = '#{params[:domain]}' "
+		end
+		if params[:author] && params[:author] != "" then
+			sql_query += " and a.id = '#{params[:author]}' "
+		end
+		sql_query += " order by c.data_aparitie desc"
 		@books = ActiveRecord::Base.connection.exec_query(sql_query).to_a
 		@books = @books.paginate(:page => params[:page], :per_page => 5)
 		
@@ -24,7 +34,7 @@ class BooksController < ApplicationController
 					        WHERE c.id_autor = a.id AND
 					        c.id_editura = e.id AND
 					        c.id_domeniu = d.id 
-					        ORDER BY c.data_aparitie, c.data_adaugare DESC) top
+					        ORDER BY c.data_aparitie DESC, c.data_adaugare DESC) top
 					where rownum < 10"
 		@news_books = ActiveRecord::Base.connection.exec_query(sql_query).to_a
 	end
@@ -58,6 +68,12 @@ class BooksController < ApplicationController
 					c.id = " + params[:id]
 		@book = ActiveRecord::Base.connection.exec_query(sql_query).to_a.first
 
+		sql_query = "select c.nr_inchirieri(b.id) as imprumuturi, c.nr_rezervari(b.id) as rezervari, 
+					c.nr_total(b.id) as total, b.id as id_biblioteca, b.returneaza_adresa() as adresa, b.nume as nume
+					from carte c, biblioteca b
+					where c.id = " + params[:id]
+		@details = ActiveRecord::Base.connection.exec_query(sql_query).to_a
+
 		if user_signed_in? and current_user.user_type == 'employee' then
 			sql_query = "select i.*, s.name as nume, s.surname as prenume, b.nume as biblioteca 
 						from imprumut i, users s, biblioteca b
@@ -75,14 +91,6 @@ class BooksController < ApplicationController
 			@reserved_books = ActiveRecord::Base.connection.exec_query(sql_query).to_a
 		end
 
-	end
-
-	def instances
-		sql_query = "select b.nume as nume, b.returneaza_adresa() as adresa, e.nr_exemplare as exemplare, id_carte
-					from biblioteca b, exemplar e
-					where b.id = e.id_biblioteca
-					and e.id_carte = " + params[:id]
-		ActiveRecord::Base.connection.exec_query(sql_query).to_a
 	end
 
 	private

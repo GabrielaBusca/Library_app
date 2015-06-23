@@ -18,10 +18,10 @@
 				  <div class="media-body">
 				    <h4 class="media-heading"></h4>
 				    <b> Titlu: </b> <%= book["titlu"] %> <br>
-				    <b> Data aparitie: </b> <%= book["data_aparitie"] %> <br>
-				    <b> Data adaugare: </b> <%= book["data_adaugare"] %> <br>
+				    <b> Dată apariție: </b> <%= book["data_aparitie"].year %> <br>
+				    <b> Dată adăugare: </b> <%= book["data_adaugare"].strftime("%d-%m-%Y") %> <br>
 				    <b> Domeniu: </b> <%= book["domeniu"] %> <br>
-				    <b> Editura: </b> <%= book["editura"] %> <br>
+				    <b> Editură: </b> <%= book["editura"] %> <br>
 				    <b> Autor: </b> <%= book["autor"] %> <br>
 				  </div>
 				</div>

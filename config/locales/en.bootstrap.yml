@@ -8,16 +8,16 @@ en:
     pages:
       pages: "Pages"
   helpers:
-    actions: "Actions"
+    actions: "Acțiuni"
     links:
-      back: "Back"
-      cancel: "Cancel"
-      confirm: "Are you sure?"
-      destroy: "Delete"
-      new: "New"
-      edit: "Edit"
+      back: "Înapoi"
+      cancel: "Anulează"
+      confirm: "Ești sigur?"
+      destroy: "Șterge"
+      new: "Adaugă"
+      edit: "Editează"
     titles:
-      edit: "Edit %{model}"
-      save: "Save %{model}"
-      new: "New %{model}"
-      delete: "Delete %{model}"
+      edit: "Editează %{model}"
+      save: "Salvează %{model}"
+      new: "Adaugă %{model}"
+      delete: "Șterge %{model}"
