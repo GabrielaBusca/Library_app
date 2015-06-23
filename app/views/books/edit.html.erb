@@ -1,0 +1,10 @@
+<div class="page-header">
+	
+	<h3><span class="small-picture" >
+		<%= image_tag @book.imagine_coperta.to_s if @book.imagine_coperta.present? %> 
+	</span>Editează o carte </h3>
+</div>
+
+<div class="new-book-content"> 
+	<%= render :partial => 'form' %>
+</div>

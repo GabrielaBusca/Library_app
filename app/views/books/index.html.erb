@@ -1,4 +1,9 @@
 <div class="page-header">
+	<% if user_signed_in? && current_user.user_type != nil %>  
+	  <div class="btn btn-group pull-right">
+		<%= link_to "Adauga", new_book_path, :class => "btn btn-primary" %>
+	  </div>
+	<% end %>
 	<h3> Colecție </h3>
 </div>
 <div class="search-control">

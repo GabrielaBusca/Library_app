@@ -1,15 +1,12 @@
-
 <script>
-	$(":file").filestyle({
-  input: false
-})
+  $(document).ready(function(){
+  	$(":file").filestyle({
+	  input: false
+	})
+  })
 </script>
 <%= simple_form_for @book, :html => { :class => 'form-horizontal' } do |f| %>
 	<table class="table">
-		<!-- <tr>
-			<th> ID </th> 
-			<td> <%= f.input :id , :input_html => {:class => 'form-control'}, :label => false %> </td>
-		</tr> -->
 		<tr>
 			<th> Titlu </th>
 			<td> <%= f.input :titlu , :input_html => {:class => 'form-control'},:label => false %> </td>
@@ -46,12 +43,12 @@
 		<tr>
 			<th> Imagine copertă </th>
 			<td> 
-			<input type="file" class="filestyle" name="book[imagine_coperta]" data-buttonBefore="true" data-size="sm" data-buttonName="btn-primary" data-buttonText="Cauta" >
+				<%= f.input :imagine_coperta, :class => "filestyle", :label => false %>
 			</td>
 		</tr>
 		<tr>
 			<th> </th>
-			<td> <%= f.button :submit, :class => "btn btn-primary pull-right" %> </td>
+			<td> <%= f.submit "Salvează", :class => "btn btn-primary pull-right" %> </td>
 		</tr>
 	</table>
 <% end %>

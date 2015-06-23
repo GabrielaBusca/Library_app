@@ -48,7 +48,7 @@ class BooksController < ApplicationController
 
 	def create
 		@book = Book.new(book_params)
-		print book_params
+		@book.id = Book.next_id_sequence
 		respond_to do |format|
 	      if @book.save
 	        format.html {redirect_to new_book_path, :notice => "Cartea a fost adaugata cu succes!" }
@@ -56,6 +56,27 @@ class BooksController < ApplicationController
 	        format.json { render json: @book.errors, status: :unprocessable_entity }
 	      end
 	    end
+	end
+
+	def edit
+		@book = Book.find(params[:id])
+		@domains = Domain.all
+		@publishers = Publisher.all
+		@authors = Author.all
+	end
+
+	def update
+		@book = Book.find(params[:id])
+    	if @book.update(book_params)
+      		redirect_to @book
+    	else
+      		render 'edit'
+    	end
+	end
+
+	def destroy
+		@book = Book.find(params[:id]).destroy
+		redirect_to books_path
 	end
 
 	def show 
@@ -90,12 +111,12 @@ class BooksController < ApplicationController
 						b.id = i.id_biblioteca"
 			@reserved_books = ActiveRecord::Base.connection.exec_query(sql_query).to_a
 		end
-
 	end
 
 	private
 		def book_params
-	      params.require(:book).permit(:id, :titlu, :cod_isbn, :data_adaugare, :data_aparitie, :id_domeniu, :id_autor, :id_editura, :descriere, :imagine_coperta)
+	      params.require(:book).permit(:id, :titlu, :cod_isbn, :data_adaugare, :data_aparitie, 
+	      	:id_domeniu, :id_autor, :id_editura, :descriere, :imagine_coperta)
 	    end
 
 end

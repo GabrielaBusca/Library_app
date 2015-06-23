@@ -38,10 +38,14 @@
 </style>
 
 <div class="page-header">
-	<% if user_signed_in? and current_user.user_type == 'employee' %>
+	<% if user_signed_in? and current_user.user_type %>
 	<div class="btn btn-group pull-right">
-		<%=link_to "Împrumută", new_book_borrow_path(@book["id"]), :class => "btn btn-primary" %>
-		<%= link_to "Editează", "#", :class => "btn btn-warning" %>
+		<%=link_to "Împrumută", new_book_borrow_path(@book["id"]), :class => "btn btn-xs btn-primary" %>
+		<%= link_to "Editează", edit_book_path(@book["id"]), :class => "btn btn-xs btn-warning" %>
+		<%= link_to "Adaugă exemplare", new_book_instance_path(@book["id"]), :class => "btn btn-xs btn-success" %>
+		<% if current_user.user_type == "admin" %>
+    		<%= link_to "Sterge", book_path(@book["id"]), :method => :delete, :class => "btn btn-xs btn-danger", data: { confirm: 'Sunteti sigur?' } %>
+    	<% end %>
 	</div>
 	<% end %>
 	<h3> <%= @book["titlu"] %> </h3>
@@ -124,8 +128,9 @@
 						<td> <%= detail["total"] %> </td>
 						<td> <%= detail["imprumuturi"] %> </td>
 						<td> <%= detail["rezervari"] %> </td> 
-						<% if !current_user.user_type %>
-								<td> <%= link_to "Rezervă", library_book_reservations_path(detail["id_biblioteca"], params[:id]), :method => :post, :class => "btn btn-xs btn-success" %> </td>
+						<% if !current_user.user_type && detail["imprumuturi"].to_i + detail["rezervari"].to_i <  detail["total"].to_i %>
+								<td> <%= link_to "Rezervă", library_book_reservations_path(detail["id_biblioteca"], params[:id]), :method => :post, :class => "btn btn-xs btn-success" %> 
+								</td>
 						<% end %>
 					<% end %>
 				</tr>

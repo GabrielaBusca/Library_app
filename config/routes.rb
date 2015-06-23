@@ -17,6 +17,7 @@ Rails.application.routes.draw do
   resources :books do
     resources :votes, :only => [:create, :index]
     resources :borrows, :only => [:new, :create]
+    resources :instances, :only => [:new, :create]
   end
 
   resources :users, :only => [:show, :index] 

@@ -9,4 +9,10 @@ class Book < ActiveRecord::Base
 
   mount_uploader :imagine_coperta, BookUploader
 
+  def self.next_id_sequence
+    sql_query = "SELECT carte_seq.nextval AS next_id from dual"
+    result = ActiveRecord::Base.connection.exec_query(sql_query).to_a.first
+  	result["next_id"]
+  end
+
 end
